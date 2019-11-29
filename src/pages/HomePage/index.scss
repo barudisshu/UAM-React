@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.home-container {
+  max-width: 600px;
+  margin: 20px auto 0;
+  font-size: $base-font-size;
+}
+
+.home-content {
+  margin-bottom: 30px;
+  padding: 20px 15px 20px 15px;
+  letter-spacing: .01em;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+}
+
+
+@media (max-width: 768px) {
+  .home-question {
+    font-size: 18px;
+  }
+}
+
