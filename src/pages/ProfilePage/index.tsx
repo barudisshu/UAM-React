@@ -6,11 +6,11 @@ import {withRouter, RouteComponentProps} from 'react-router-dom';
 
 interface IProps extends RouteComponentProps {
   isAuthenticated: boolean;
-  currentUser: CurrentUser;
+  currentUser: ICurrentUser;
 }
 
 class ProfilePage extends React.Component<IProps> {
-  render() {
+  public render() {
     return (
       <div className={'profile-container'}>
         <div className={'profile-content'}>

@@ -21,10 +21,10 @@ const FormItem = Form.Item;
 type IProps = RouteComponentProps;
 
 interface IState {
-  name: ConstraintViolation;
-  username: ConstraintViolation;
-  email: ConstraintViolation;
-  password: ConstraintViolation;
+  name: IConstraintViolation;
+  username: IConstraintViolation;
+  email: IConstraintViolation;
+  password: IConstraintViolation;
 }
 
 class RegisterPage extends React.Component<IProps, IState> {
@@ -50,6 +50,84 @@ class RegisterPage extends React.Component<IProps, IState> {
     this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
     this.validateEmailAvailability = this.validateEmailAvailability.bind(this);
     this.isFormInvalid = this.isFormInvalid.bind(this);
+  }
+
+  public render() {
+    return (
+      <div className="register-container">
+        <h1 className="page-title">Register</h1>
+        <div className="register-content">
+          <Form onSubmit={this.handleSubmit} className="register-form">
+            <FormItem label="Full Name" validateStatus={this.state.name.validateStatus} help={this.state.name.errorMsg}>
+              <Input
+                size="large"
+                name="name"
+                autoComplete="off"
+                placeholder="Your full name"
+                value={this.state.name.value}
+                onChange={event => this.handleInputChange(event, this.validateName)}
+              />
+            </FormItem>
+            <FormItem
+              label="Username"
+              hasFeedback={true}
+              validateStatus={this.state.username.validateStatus}
+              help={this.state.username.errorMsg}>
+              <Input
+                size="large"
+                name="username"
+                autoComplete="off"
+                placeholder="A unique username"
+                value={this.state.username.value}
+                onBlur={this.validateUsernameAvailability}
+                onChange={event => this.handleInputChange(event, this.validateUsername)}
+              />
+            </FormItem>
+            <FormItem
+              label="Email"
+              hasFeedback={true}
+              validateStatus={this.state.email.validateStatus}
+              help={this.state.email.errorMsg}>
+              <Input
+                size="large"
+                name="email"
+                type="email"
+                autoComplete="off"
+                placeholder="Your email"
+                value={this.state.email.value}
+                onBlur={this.validateEmailAvailability}
+                onChange={event => this.handleInputChange(event, this.validateEmail)}
+              />
+            </FormItem>
+            <FormItem
+              label="Password"
+              validateStatus={this.state.password.validateStatus}
+              help={this.state.password.errorMsg}>
+              <Input
+                size="large"
+                name="password"
+                type="password"
+                autoComplete="off"
+                placeholder="A password between 6 to 20 characters"
+                value={this.state.password.value}
+                onChange={event => this.handleInputChange(event, this.validatePassword)}
+              />
+            </FormItem>
+            <FormItem>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                className="register-form-button"
+                disabled={this.isFormInvalid()}>
+                Register
+              </Button>
+              Already registered? <Link to="/login">Login now!</Link>
+            </FormItem>
+          </Form>
+        </div>
+      </div>
+    );
   }
 
   private readonly handleInputChange = (
@@ -294,84 +372,6 @@ class RegisterPage extends React.Component<IProps, IState> {
       };
     }
   };
-
-  public render() {
-    return (
-      <div className="register-container">
-        <h1 className="page-title">Register</h1>
-        <div className="register-content">
-          <Form onSubmit={this.handleSubmit} className="register-form">
-            <FormItem label="Full Name" validateStatus={this.state.name.validateStatus} help={this.state.name.errorMsg}>
-              <Input
-                size="large"
-                name="name"
-                autoComplete="off"
-                placeholder="Your full name"
-                value={this.state.name.value}
-                onChange={event => this.handleInputChange(event, this.validateName)}
-              />
-            </FormItem>
-            <FormItem
-              label="Username"
-              hasFeedback
-              validateStatus={this.state.username.validateStatus}
-              help={this.state.username.errorMsg}>
-              <Input
-                size="large"
-                name="username"
-                autoComplete="off"
-                placeholder="A unique username"
-                value={this.state.username.value}
-                onBlur={this.validateUsernameAvailability}
-                onChange={event => this.handleInputChange(event, this.validateUsername)}
-              />
-            </FormItem>
-            <FormItem
-              label="Email"
-              hasFeedback
-              validateStatus={this.state.email.validateStatus}
-              help={this.state.email.errorMsg}>
-              <Input
-                size="large"
-                name="email"
-                type="email"
-                autoComplete="off"
-                placeholder="Your email"
-                value={this.state.email.value}
-                onBlur={this.validateEmailAvailability}
-                onChange={event => this.handleInputChange(event, this.validateEmail)}
-              />
-            </FormItem>
-            <FormItem
-              label="Password"
-              validateStatus={this.state.password.validateStatus}
-              help={this.state.password.errorMsg}>
-              <Input
-                size="large"
-                name="password"
-                type="password"
-                autoComplete="off"
-                placeholder="A password between 6 to 20 characters"
-                value={this.state.password.value}
-                onChange={event => this.handleInputChange(event, this.validatePassword)}
-              />
-            </FormItem>
-            <FormItem>
-              <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                className="register-form-button"
-                disabled={this.isFormInvalid()}>
-                Register
-              </Button>
-              Already registered? <Link to="/login">Login now!</Link>
-            </FormItem>
-          </Form>
-        </div>
-      </div>
-    );
-  }
 }
 
 export default withRouter(RegisterPage);

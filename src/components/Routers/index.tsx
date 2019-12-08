@@ -42,52 +42,7 @@ class Routes extends React.Component<IProps, IState> {
     });
   }
 
-  private readonly handleLogout = (
-    redirectTo = '/',
-    notificationType = 'success',
-    description = "You're successfully logged out.",
-  ) => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    this.setState({
-      currentUser: null,
-      isAuthenticated: false,
-    });
-    this.props.history.push(redirectTo);
-    notification[notificationType]({
-      message: 'UAM',
-      description: description,
-    });
-  };
-
-  private readonly handleLogin = () => {
-    notification.success({
-      message: 'UAM',
-      description: "You're successfully logged in.",
-    });
-    this.loadCurrentUser();
-    this.props.history.push('/');
-  };
-
-  private readonly loadCurrentUser = () => {
-    this.setState({
-      isLoading: true,
-    });
-    getCurrentUser()
-      .then(response => {
-        this.setState({
-          currentUser: response,
-          isAuthenticated: true,
-          isLoading: false,
-        });
-      })
-      .catch(error => {
-        this.setState({
-          isLoading: false,
-        });
-      });
-  };
-
-  componentDidMount() {
+  public componentDidMount() {
     this.loadCurrentUser();
   }
 
@@ -136,6 +91,51 @@ class Routes extends React.Component<IProps, IState> {
       </Layout>
     );
   }
+
+  private readonly handleLogout = (
+    redirectTo = '/',
+    notificationType = 'success',
+    description = "You're successfully logged out.",
+  ) => {
+    localStorage.removeItem(ACCESS_TOKEN);
+    this.setState({
+      currentUser: null,
+      isAuthenticated: false,
+    });
+    this.props.history.push(redirectTo);
+    notification[notificationType]({
+      message: 'UAM',
+      description,
+    });
+  };
+
+  private readonly handleLogin = () => {
+    notification.success({
+      message: 'UAM',
+      description: "You're successfully logged in.",
+    });
+    this.loadCurrentUser();
+    this.props.history.push('/');
+  };
+
+  private readonly loadCurrentUser = () => {
+    this.setState({
+      isLoading: true,
+    });
+    getCurrentUser()
+      .then(response => {
+        this.setState({
+          currentUser: response,
+          isAuthenticated: true,
+          isLoading: false,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          isLoading: false,
+        });
+      });
+  };
 }
 
 const RoutesWrap: React.FC = () => {

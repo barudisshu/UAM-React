@@ -77,7 +77,7 @@ export class Header extends React.Component<IProps> {
 }
 
 interface IDropdownProps {
-  currentUser: any;
+  currentUser: ICurrentUser;
   handleMenuClick?: (param: ClickParam) => void;
   popupContainer?: (triggerNode: HTMLElement) => HTMLElement;
 }
@@ -86,7 +86,7 @@ function ProfileDropdownMenu(props: IDropdownProps) {
   const dropdownMenu = (
     <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
       <Menu.Item key="user-info" className="dropdown-item" disabled={true}>
-        <div className="user-full-name-info">{props.currentUser.name}</div>
+        <div className="user-full-name-info">{props.currentUser.username}</div>
         <div className="username-info">@{props.currentUser.username}</div>
       </Menu.Item>
       <Menu.Divider />

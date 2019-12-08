@@ -1,5 +1,5 @@
 /** @format */
-import {ACCESS_TOKEN, API_BASE_URL, POLL_LIST_SIZE} from '../components/Constants';
+import {ACCESS_TOKEN, API_BASE_URL} from '../components/Constants';
 
 const request = (options: any) => {
   const headers = new Headers({
@@ -25,15 +25,23 @@ const request = (options: any) => {
 
 export function login(loginRequest: any) {
   return request({
-    url: API_BASE_URL + '/auth/signin',
+    url: API_BASE_URL + '/authorize',
     method: 'POST',
     body: JSON.stringify(loginRequest),
   });
 }
 
+export function scratch(accessRequest: any) {
+  return request({
+    url: API_BASE_URL + "/access",
+    method: 'POST',
+    body: JSON.stringify(accessRequest)
+  })
+}
+
 export function register(registerRequest: any) {
   return request({
-    url: API_BASE_URL + '/auth/signup',
+    url: API_BASE_URL + '/register',
     method: 'POST',
     body: JSON.stringify(registerRequest),
   });
@@ -59,60 +67,14 @@ export function getCurrentUser() {
   }
 
   return request({
-    url: API_BASE_URL + '/user/me',
+    url: API_BASE_URL + '/user',
     method: 'GET',
   });
 }
 
-export function getUserProfile(username: string) {
+export function getUserProfile(uid: string) {
   return request({
-    url: API_BASE_URL + '/users/' + username,
-    method: 'GET',
-  });
-}
-
-export function getAllPolls(page: number, size: number) {
-  page = page || 0;
-  size = size || POLL_LIST_SIZE;
-
-  return request({
-    url: API_BASE_URL + '/polls?page=' + page + '&size=' + size,
-    method: 'GET',
-  });
-}
-
-export function createPoll(pollData: any) {
-  return request({
-    url: API_BASE_URL + '/polls',
-    method: 'POST',
-    body: JSON.stringify(pollData),
-  });
-}
-
-export function castVote(voteData: any) {
-  return request({
-    url: API_BASE_URL + '/polls/' + voteData.pollId + '/votes',
-    method: 'POST',
-    body: JSON.stringify(voteData),
-  });
-}
-
-export function getUserCreatedPolls(username: string, page: number, size: number) {
-  page = page || 0;
-  size = size || POLL_LIST_SIZE;
-
-  return request({
-    url: API_BASE_URL + '/users/' + username + '/polls?page=' + page + '&size=' + size,
-    method: 'GET',
-  });
-}
-
-export function getUserVotedPolls(username: string, page: number, size: number) {
-  page = page || 0;
-  size = size || POLL_LIST_SIZE;
-
-  return request({
-    url: API_BASE_URL + '/users/' + username + '/votes?page=' + page + '&size=' + size,
+    url: API_BASE_URL + '/user/' + uid,
     method: 'GET',
   });
 }

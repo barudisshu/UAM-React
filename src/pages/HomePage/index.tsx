@@ -6,7 +6,7 @@ import './index.scss';
 
 interface IProps extends RouteComponentProps {
   isAuthenticated: boolean;
-  currentUser: CurrentUser;
+  currentUser: ICurrentUser;
   handleLogout: (redirectTo: string, notificationType: string, description: string) => void;
 }
 

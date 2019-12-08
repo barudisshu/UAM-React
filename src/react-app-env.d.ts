@@ -2,15 +2,15 @@
 
 /// <reference types="react-scripts" />
 
-type ConstraintViolation = {
+interface IConstraintViolation {
   field?: string;
   value: string;
   validateStatus?: typeof ValidateStatuses[number];
   errorMsg?: string;
-};
-type CurrentUser = {
+}
+interface ICurrentUser {
   uid: string;
   username: string;
   role: string;
   email: string;
-};
+}
