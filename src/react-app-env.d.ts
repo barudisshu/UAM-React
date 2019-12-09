@@ -10,6 +10,7 @@ interface IConstraintViolation {
 }
 interface ICurrentUser {
   uid: string;
+  name: string;
   username: string;
   role: string;
   email: string;

@@ -34,9 +34,7 @@ class LoginForm extends React.Component<ILoginProps> {
         <FormItem>
           {getFieldDecorator('username', {
             rules: [{required: true, message: 'Please input your username or email!'}],
-          })(
-            <Input prefix={<Icon type="user" />} size="large" name="username" placeholder="Username or Email" />,
-          )}
+          })(<Input prefix={<Icon type="user" />} size="large" name="username" placeholder="Username or Email" />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
@@ -76,22 +74,24 @@ class LoginForm extends React.Component<ILoginProps> {
               grantType: 'authorization_code',
               code: response.data,
             };
-            scratch(accessRequest).then(res => {
-              localStorage.setItem(ACCESS_TOKEN, res.access_token);
-              this.props.onLogin();
-            }).catch(error => {
-              if (error.code === 401) {
-                notification.error({
-                  message: 'UAM App',
-                  description: 'Authentication failure. Please try again!',
-                });
-              } else if (error.code === 400) {
-                notification.error({
-                  message: error.desc,
-                  description: error.data || 'Sorry! Something went wrong.',
-                });
-              }
-            });
+            scratch(accessRequest)
+              .then(res => {
+                localStorage.setItem(ACCESS_TOKEN, res.access_token);
+                this.props.onLogin();
+              })
+              .catch(error => {
+                if (error.code === 401) {
+                  notification.error({
+                    message: 'UAM App',
+                    description: 'Authentication failure. Please try again!',
+                  });
+                } else if (error.code === 400) {
+                  notification.error({
+                    message: error.desc,
+                    description: error.data || 'Sorry! Something went wrong.',
+                  });
+                }
+              });
           })
           .catch(error => {
             if (error.code === 401) {
@@ -115,17 +115,23 @@ class LoginPage extends React.Component<IProps> {
   public render() {
     const searchParams = new URLSearchParams(this.props.location.search);
     const urlParams = {
-      clientId: searchParams.get("client_id") || '302d111b-666f-4e49-ad1e-22ac605d6efe',
-      clientSecret: searchParams.get("client_secret") || 'a34b9e7a-4508-45d0-871c-ed4d7c3dcf9c',
-      responseType: searchParams.get("response_type") || 'code',
-      redirectUri: searchParams.get("redirect_uri") || 'http://localhost:3000'
+      clientId: searchParams.get('client_id') || '302d111b-666f-4e49-ad1e-22ac605d6efe',
+      clientSecret: searchParams.get('client_secret') || 'a34b9e7a-4508-45d0-871c-ed4d7c3dcf9c',
+      responseType: searchParams.get('response_type') || 'code',
+      redirectUri: searchParams.get('redirect_uri') || 'http://localhost:3000',
     };
     const AntWrappedLoginForm = Form.create<ILoginProps>()(LoginForm);
     return (
       <div className={'login-container'}>
         <h1 className={'page-title'}>Login</h1>
         <div className={'login-content'}>
-          <AntWrappedLoginForm onLogin={this.props.onLogin} clientId={urlParams.clientId} clientSecret={urlParams.clientSecret} responseType={urlParams.responseType} redirectUri={urlParams.redirectUri}/>
+          <AntWrappedLoginForm
+            onLogin={this.props.onLogin}
+            clientId={urlParams.clientId}
+            clientSecret={urlParams.clientSecret}
+            responseType={urlParams.responseType}
+            redirectUri={urlParams.redirectUri}
+          />
         </div>
       </div>
     );

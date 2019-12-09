@@ -274,7 +274,7 @@ class RegisterPage extends React.Component<IProps, IState> {
 
     checkUsernameAvailability(usernameValue)
       .then(response => {
-        if (response.available) {
+        if (response.code === 200) {
           this.setState({
             username: {
               value: usernameValue,
@@ -326,7 +326,7 @@ class RegisterPage extends React.Component<IProps, IState> {
 
     checkEmailAvailability(emailValue)
       .then(response => {
-        if (response.available) {
+        if (response.code === 200) {
           this.setState({
             email: {
               value: emailValue,

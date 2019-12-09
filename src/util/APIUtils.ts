@@ -33,16 +33,16 @@ export function login(loginRequest: any) {
 
 export function scratch(accessRequest: any) {
   return request({
-    url: API_BASE_URL + "/access",
+    url: API_BASE_URL + '/access',
     method: 'POST',
-    body: JSON.stringify(accessRequest)
-  })
+    body: JSON.stringify(accessRequest),
+  });
 }
 
 export function register(registerRequest: any) {
   return request({
-    url: API_BASE_URL + '/register',
-    method: 'POST',
+    url: API_BASE_URL + '/user/register',
+    method: 'PUT',
     body: JSON.stringify(registerRequest),
   });
 }
@@ -67,7 +67,7 @@ export function getCurrentUser() {
   }
 
   return request({
-    url: API_BASE_URL + '/user',
+    url: API_BASE_URL + '/openapi/userInfo',
     method: 'GET',
   });
 }

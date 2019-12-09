@@ -93,7 +93,7 @@ class Routes extends React.Component<IProps, IState> {
   }
 
   private readonly handleLogout = (
-    redirectTo = '/',
+    redirectTo = '/login',
     notificationType = 'success',
     description = "You're successfully logged out.",
   ) => {
@@ -125,7 +125,7 @@ class Routes extends React.Component<IProps, IState> {
     getCurrentUser()
       .then(response => {
         this.setState({
-          currentUser: response,
+          currentUser: response.data,
           isAuthenticated: true,
           isLoading: false,
         });

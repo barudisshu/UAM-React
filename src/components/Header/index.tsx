@@ -4,7 +4,6 @@ import {Link, RouteComponentProps, withRouter} from 'react-router-dom';
 import 'url-search-params-polyfill';
 import './index.scss';
 
-import logo from '../../logo.svg';
 import {Dropdown, Icon, Layout, Menu} from 'antd';
 import {ClickParam} from 'antd/es/menu';
 
@@ -35,11 +34,6 @@ export class Header extends React.Component<IProps> {
         <Menu.Item key="/">
           <Link to="/">
             <Icon type="home" className="nav-icon" />
-          </Link>
-        </Menu.Item>,
-        <Menu.Item key="/poll/new">
-          <Link to="/poll/new">
-            <img src={logo} alt="poll" className="poll-icon" />
           </Link>
         </Menu.Item>,
         <Menu.Item key="/profile" className="profile-menu">
@@ -86,12 +80,12 @@ function ProfileDropdownMenu(props: IDropdownProps) {
   const dropdownMenu = (
     <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
       <Menu.Item key="user-info" className="dropdown-item" disabled={true}>
-        <div className="user-full-name-info">{props.currentUser.username}</div>
+        <div className="user-full-name-info">{props.currentUser.name}</div>
         <div className="username-info">@{props.currentUser.username}</div>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="profile" className="dropdown-item">
-        <Link to={`/users/${props.currentUser.username}`}>Profile</Link>
+        <Link to={`/users/${props.currentUser.uid}`}>Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout" className="dropdown-item">
         Logout
